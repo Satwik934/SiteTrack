@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
+import bcrypt from "bcryptjs";
 
 export interface IUser extends Document {
   company: Types.ObjectId;
@@ -8,8 +9,9 @@ export interface IUser extends Document {
   password: string;
   role: "owner" | "manager" | "worker";
   isActive: boolean;
-}
 
+  comparePassword(candidatePassword: string): Promise<boolean>;
+}
 const userSchema = new Schema<IUser>(
   {
     company: {
@@ -33,6 +35,7 @@ const userSchema = new Schema<IUser>(
     email: {
       type: String,
       required: true,
+      unique: true,
       lowercase: true,
       trim: true,
     },
@@ -58,7 +61,22 @@ const userSchema = new Schema<IUser>(
     timestamps: true,
   }
 );
-
-const User = mongoose.model<IUser>("User", userSchema);
-
-export default User;
+// ↓ These attach behavior to the completed schema
+userSchema.pre("save", async function () {
+    if (!this.isModified("password")) {
+      return;
+    }
+  
+    this.password = await bcrypt.hash(this.password, 12);
+  });
+  
+  userSchema.methods.comparePassword = async function (
+    candidatePassword: string
+  ): Promise<boolean> {
+    return bcrypt.compare(candidatePassword, this.password);
+  };
+  
+  // ↓ Create model AFTER hooks/methods are attached
+  const User = mongoose.model<IUser>("User", userSchema);
+  
+  export default User;
