@@ -1,0 +1,56 @@
+.sidebar nav { display: grid; gap: 7px; }
+.sidebar nav a:not(.active) { background: transparent; border-color: transparent; color: #c4d3c8; }
+.sidebar nav a:hover { background: #ffffff12; }
+.management-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.management-heading > .button { width: auto; white-space: nowrap; margin-top: 0; }
+.management-heading .intro { margin-bottom: 20px; }
+.management-actions { display: flex; gap: 12px; margin-top: 22px; }
+.management-actions .button { width: auto; margin: 0; }
+.secondary { background: #fcfcf9; border: 1px solid #c6d3c7; color: #245543; }
+.danger { background: #8e3e2d; color: white; }
+.employee-form-panel, .company-card { border: 1px solid #dae2d7; border-radius: 7px; background: #fffefa; padding: 28px; margin: 20px 0 28px; max-width: 680px; }
+.employee-form-panel h2, .company-card h2 { font-size: 24px; margin-bottom: 10px; }
+.employee-form-panel > p { font-size: 13px; color: #657568; margin-bottom: 24px; }
+.employee-form-panel select { font: inherit; font-size: 14px; padding: 12px; min-height: 47px; background: white; color: #20342f; border: 1px solid #d6ddd6; border-radius: 5px; width: 100%; }
+.employee-list { margin-top: 28px; border: 1px solid #dce3d7; border-radius: 7px; background: #fdfefb; overflow: hidden; }
+.list-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; justify-content: space-between; padding: 24px; border-bottom: 1px solid #e1e6dc; }
+.list-toolbar h2 { font-size: 18px; margin-bottom: 7px; }
+.list-toolbar p { font-size: 12px; color: #637360; margin: 0; }
+.list-toolbar .form-field { margin: 0; }
+.list-toolbar .refresh-button { width: auto; font-size: 12px; }
+.table-scroll { overflow-x: auto; }
+.employee-list table { border-collapse: collapse; width: 100%; font-size: 13px; text-align: left; }
+.employee-list th { font-weight: 600; color: #61715b; font-size: 11px; letter-spacing: .02em; background: #f2f5ed; padding: 14px 24px; }
+.employee-list td { padding: 20px 24px; border-top: 1px solid #e8ece3; vertical-align: middle; }
+.employee-list td:first-child { min-width: 190px; }
+.employee-list strong { font-weight: 600; overflow-wrap: anywhere; }
+.employee-email { display: block; color: #6a7867; font-size: 12px; margin-top: 6px; overflow-wrap: anywhere; }
+.employee-role { text-transform: capitalize; }
+.self-label { margin-left: 8px; font-size: 10px; color: #64715c; font-weight: 400; }
+.status-badge { display: inline-block; font-size: 11px; padding: 5px 9px; border-radius: 4px; white-space: nowrap; }
+.status-badge.active { color: #315b3c; background: #eaf2e4; }
+.status-badge.inactive { color: #685d4f; background: #efebe3; }
+.row-actions { display: flex; flex-wrap: wrap; gap: 9px 14px; align-items: center; }
+.row-actions button { border: 0; padding: 7px 0; background: transparent; color: #275d4c; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.protected-label { font-size: 10px; color: #73816b; }
+.empty-state { text-align: center; padding: 40px 24px; color: #697663; font-size: 14px; }
+.empty-state .button { width: auto; margin: auto; }
+.success-notice { background: #e8f1e2; border: 1px solid #c6d9b7; border-radius: 5px; padding: 13px 17px; color: #365332; font-size: 13px; margin: 20px 0; }
+.status-dialog { width: min(460px, calc(100vw - 36px)); border: 1px solid #c5d1c0; border-radius: 8px; padding: 28px; background: #fcfcf9; color: #20342f; }
+.status-dialog::backdrop { background: #10251c8c; }
+.status-dialog h2 { font-size: 23px; }
+.status-dialog p { font-size: 14px; color: #65715f; }
+.company-card dl { margin: 28px 0; }
+.company-card dl > div { padding: 18px 0; border-top: 1px solid #e1e6dc; }
+.company-card dt { color: #677561; font-size: 11px; margin-bottom: 8px; }
+.company-card dd { margin: 0; font-size: 15px; overflow-wrap: anywhere; }
+@media (max-width: 760px) {
+  .management-heading { align-items: flex-start; flex-direction: column; gap: 0; }
+  .management-heading > .button { margin-bottom: 10px; }
+  .list-toolbar { align-items: stretch; flex-direction: column; padding: 20px; }
+  .employee-list th, .employee-list td { padding: 14px; }
+  .employee-list table { min-width: 590px; }
+  .employee-form-panel, .company-card { padding: 22px; }
+  .management-actions { flex-wrap: wrap; }
+  .status-dialog .management-actions .button { flex: 1; }
+}

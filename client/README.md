@@ -31,7 +31,7 @@ Vite environment-file loading is explicitly disabled. Port 5173 is fixed so a bu
 - AuthContext keeps the session in memory, never browser storage. Refreshing or closing the page requires signing in again. Logout clears the session.
 - `/dashboard` redirects to login without a session. This is a UI guard; the backend remains authoritative for access to protected data. JWT contents are never decoded for authorization.
 - The dashboard contains only account information, the existing API health check, and clearly labeled future-feature placeholders.
-- `apiRequest` supports a Bearer token for future protected calls. There are no protected business-data requests in this foundation.
+- `apiRequest` sends the memory-only Bearer token for company and employee requests.
 
 Shared components live in `src/components`, pages in `src/pages`, routing in `src/routing`, session state in `src/auth`, and request logic in `src/services`.
 
@@ -49,3 +49,13 @@ Playwright starts its own local Vite server on port 5173, so stop any frontend d
 Manual checks: register an owner, sign out, sign in, try an incorrect password and duplicate registration, open `/dashboard` while signed out, and check the forms on a narrow screen. A page refresh intentionally clears the current memory-only session.
 
 For future hosting, serve the built `dist` directory with SPA route fallback and route `/api` to the backend; the development proxy is not bundled into the production app.
+
+## Company and employees
+
+`/company` shows the signed-in user’s company details for every role. `/employees` is restricted to owners and managers, with a searchable directory, add/edit forms, active/inactive badges, loading/error feedback, and confirmation dialogs for status changes. Workers have no employee-administration navigation.
+
+Owners create managers/workers and manage non-owner roles and active status. Managers create workers and edit only worker names/status. Owner role/status controls are unavailable, including for the current owner, to protect administrative access. Company records are view-only; email/password editing and ownership transfer are deferred.
+
+Typed management services live in `src/services/management.ts`; feature types in `src/types/management.ts`. All calls use relative `/api` paths and the existing auth context. Frontend role visibility is UX only; server-side checks and company scoping remain authoritative. Creation/update responses update the directory; Refresh list reloads the server state after external changes.
+
+`tests/employees.spec.ts` extends the original auth browser suite with mocked company/employee requests. No real employee accounts are created by these tests.
